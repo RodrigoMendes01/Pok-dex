@@ -10,6 +10,7 @@ const botaoProximo = document.querySelector('.btn-next')
 /*********Primeiro Pokemon*******************/
 let primeiroPokemon = 1;
 
+/*********Buscar pokemon na API***********************/
 const encontrarPokemon = async  (pokemon) => {
     const pokemonEncontrado = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
 
@@ -18,6 +19,7 @@ const encontrarPokemon = async  (pokemon) => {
       return data
     }
 }
+/********Renderizar dados do pokemon no html com DOM*************/
 const renderizarNaView = async (pokemon) => {
   nomePokemon.innerHTML = "Carregando..."
   idPokemon.innerHTML = ''
@@ -38,22 +40,24 @@ const renderizarNaView = async (pokemon) => {
 
 }
 /*********Eventos*******************************/
+/***Formulário***/
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
   renderizarNaView(inputPesquisa.value.toLowerCase())
   inputPesquisa.value = ''
 })
+/*****Botão de voltar******/
 botaoAnterior.addEventListener('click', () => {
   if (primeiroPokemon > 1) {
     primeiroPokemon -= 1
     renderizarNaView(primeiroPokemon)
   }
 })
+/****Botão de próximo****/
 botaoProximo.addEventListener('click', () => {
   primeiroPokemon += 1
   renderizarNaView(primeiroPokemon)
 })
-/***********************************************/
-
+/***********Inicar view com um pokemon padrão********/
 renderizarNaView(primeiroPokemon)
